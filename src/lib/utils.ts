@@ -10,7 +10,9 @@ export function cn(...inputs: any[]) {
 export function resolveMediaUrl(url: string | null | undefined): string {
   if (!url || typeof url !== "string") return "";
   if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("/")) return url;
-  const base = process.env.NEXT_PUBLIC_SITE_URL || "";
+  const base =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://jaredmitchell.thewarriors.team/api";
   return `${base.replace(/\/+$/, "")}/${url.replace(/^\/+/, "")}`;
 }
 

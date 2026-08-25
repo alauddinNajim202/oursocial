@@ -2,7 +2,9 @@ import axios from "axios";
 import { getItem, removeItem } from "@/lib/localStorage";
 
 export const axiosSecure = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_SITE_URL,
+  baseURL:
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://jaredmitchell.thewarriors.team/api",
 });
 
 axiosSecure.interceptors.request.use(

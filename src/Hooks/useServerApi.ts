@@ -9,7 +9,10 @@ export async function useServerApi<T = any>({
   mode = "SSG",
   revalidate = 3600,
 }: FetchOptions): Promise<T> {
-  const url = `${process.env.NEXT_PUBLIC_SITE_URL}${endpoint}`;
+  const baseUrl = (
+    process.env.NEXT_PUBLIC_SITE_URL || "https://jaredmitchell.thewarriors.team/api"
+  ).replace(/\/+$/, "");
+  const url = `${baseUrl}${endpoint.startsWith("/") ? endpoint : `/${endpoint}`}`;
 
   const fetchOptions: RequestInit & { next?: { revalidate?: number } } =
     mode === "SSR"

@@ -35,7 +35,9 @@ import {
 } from "@/Types/cms";
 import { getItem } from "@/lib/localStorage";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL;
+const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL || "https://jaredmitchell.thewarriors.team/api"
+).replace(/\/+$/, "");
 
 // ---------------------------------------------------------------------------
 // CMS content pages

@@ -25,9 +25,11 @@ const NewsLetter = ({ title, sub_title, data }: NewsletterProps) => {
     setMessage("");
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SITE_URL}/v1/newsletter`,
-        {
+      const siteUrl = (
+        process.env.NEXT_PUBLIC_SITE_URL ||
+        "https://jaredmitchell.thewarriors.team/api"
+      ).replace(/\/+$/, "");
+      const res = await fetch(`${siteUrl}/v1/newsletter`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email }),
