@@ -1,0 +1,138 @@
+"use client";
+import Link from "next/link";
+import Image from "next/image";
+import { LuArrowRight } from "react-icons/lu";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import { CMSBase, HistoricalWinnersItem } from "@/Types/cms";
+
+interface SuccessStoriesProps {
+  cmsData?: CMSBase;
+  winners?: HistoricalWinnersItem[];
+  type: "business" | "artist";
+}
+
+const SuccessStories = ({ cmsData, winners, type }: SuccessStoriesProps) => {
+  const title =
+    cmsData?.title ||
+    (type === "business"
+      ? "Celebrating Local Business Success Stories"
+      : "Celebrating Local Artist Success Stories");
+
+  const subTitle =
+    cmsData?.sub_title ||
+    (type === "business"
+      ? "Meet the businesses shaping our neighborhoods."
+      : "Celebrating our community's achievements and creative milestones");
+
+  const items = winners && winners.length > 0 ? winners : [];
+
+  return (
+    <section className="section">
+      <div className="container">
+        <h2 className="section_title 2xl:text-5xl">{title}</h2>
+
+        <p className="section_sub_title">{subTitle}</p>
+      </div>
+
+      {items.length === 0 && (
+        <div className="my-6 md:mt-12">
+          <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50 py-16 px-6 text-center">
+            <p className="text-4xl mb-4">🏆</p>
+            <h4 className="text-xl font-semibold text-primary-black mb-2">
+              No {type === "artist" ? "artists" : "businesses"} available yet
+            </h4>
+            <p className="text-secondary-black max-w-md mx-auto">
+              There are no past winners to display right now. Check back soon!
+            </p>
+          </div>
+        </div>
+      )}
+
+      {items.length > 0 && (
+        <div className="my-6 md:mt-12 px-5 2xl:px-0">
+          <Swiper
+            modules={[Pagination, Autoplay]}
+            spaceBetween={20}
+            slidesPerView={1.2}
+            centeredSlides={false}
+            pagination={{ clickable: true }}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            breakpoints={{
+              640: { slidesPerView: 1.5 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+              1536: { slidesPerView: 4 },
+            }}
+          >
+            {items.map((item, index) => (
+              <SwiperSlide key={`${type}-${item.id ?? "item"}-${index}`}>
+                <div className="relative w-full h-[300px]">
+                  <Image
+                    src={item.image}
+                    fill
+                    alt={item.title}
+                    className="object-contain rounded-lg h-full w-full"
+                  />
+
+                  <div className="absolute inset-0 bg-[linear-gradient(0deg,_rgba(0,0,0,0.60)_36%,_rgba(0,0,0,0.20)_63%,_rgba(0,0,0,0.00)_100%)] rounded-lg">
+                    <div className="absolute top-4 left-4 bg-white py-1 px-3 rounded-full text-primary-black text-sm">
+                      {item.category ||
+                        (type === "business" ? "Business" : "Artist")}
+                    </div>
+
+                    <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                      <div className="space-y-1.5">
+                        <h4 className="text-lg xl:text-xl font-semibold text-white capitalize">
+                          {item.title}
+                        </h4>
+                        <p className="text-primary-gray text-sm line-clamp-2">
+                          {item.description}
+                        </p>
+                      </div>
+
+                      {item.id && (
+                        <Link
+                          href={
+                            type === "business"
+                              ? `/spotlight-business/${item.id}`
+                              : `/spotlight-artist/${item.id}`
+                          }
+                          className="text-white flex items-center gap-2 text-sm whitespace-nowrap hover:underline"
+                        >
+                          View Spotlight
+                          <LuArrowRight />
+                        </Link>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      )}
+
+      {/* <div className="text-center">
+        <Link
+          href={
+            type === "business" ? "/business-spotlight" : "/artist-spotlight"
+          }
+        >
+          <Button>
+            {type === "business"
+              ? "Explore Business Spotlights"
+              : "Explore Artist Spotlights"}
+          </Button>
+        </Link>
+      </div> */}
+    </section>
+  );
+};
+
+export default SuccessStories;

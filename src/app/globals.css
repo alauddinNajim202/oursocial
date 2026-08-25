@@ -1,0 +1,328 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "sf_pro";
+  src: url("/fonts/sf_regular.OTF") format("opentype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "sf_pro";
+  src: url("/fonts/sf_medium.OTF") format("opentype");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "sf_pro";
+  src: url("/fonts/sf_bold.OTF") format("opentype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@theme {
+  /* Colors */
+  --color-primary-blue: #306fdc;
+  --color-secondary-blue: #155dfc;
+  --color-tertiary-blue: #1977dd;
+  --color-primary-black: #1d1d1f;
+  --color-secondary-black: #364153;
+  --color-primary-gray: #f5f5f5;
+  --color-secondary-gray: #f5f5f7;
+
+  /* Font Family */
+  --font-sf: "sf_pro", sans-serif;
+}
+
+html,
+body {
+  @apply font-sf;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  @apply max-w-[1440px] w-full mx-auto px-4 lg:px-5 xl:px-8;
+}
+
+.section_title {
+  @apply text-primary-black text-2xl md:text-2xl lg:text-3xl xl:text-5xl font-bold leading-[140%] text-center mb-3 xl:mb-4;
+}
+
+.section_sub_title {
+  @apply text-center text-[15px] md:text-lg xl:text-2xl text-secondary-black mt-2 mb-4 xl:mb-5;
+}
+
+.section_description {
+  @apply text-base;
+}
+
+.section {
+  @apply py-10 md:py-12 xl:py-16;
+}
+
+.custom_border {
+  border: 0.5px solid rgba(0, 0, 0, 0.16);
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.custom_shadow {
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.07);
+}
+
+/* Soft entrance used when switching the spotlight Artist/Business tabs */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.45s ease both;
+}
+
+/* Cart badge pop — plays every time the cart count changes */
+@keyframes cart-badge-pop {
+  0% {
+    transform: scale(0.4);
+  }
+  50% {
+    transform: scale(1.35);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cart-badge-pop {
+  animation: cart-badge-pop 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Points delta badge — pops in, then floats up and fades out when a card's
+   total points changes from an interaction */
+@keyframes points-delta-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.6);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.08);
+  }
+  40% {
+    transform: translateY(0) scale(1);
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-16px) scale(1);
+  }
+}
+
+.points-delta-pop {
+  animation: points-delta-pop 1.6s ease forwards;
+}
+
+.label {
+  @apply md:text-[17px] xl:text-xl text-primary-black mb-1 xl:mb-3;
+}
+
+.auth_input {
+  @apply flex items-center gap-2 xl:gap-3 py-2.5 xl:py-4 px-3 xl:px-5 border border-[#00000029] bg-[#f5f5f7] rounded-xl xl:rounded-2xl text-[#314158];
+}
+
+.auth_input input {
+  @apply w-full outline-none;
+}
+
+/* =========== For React full calendar ================ */
+
+/* Rounded blue event pills */
+.fc .fc-daygrid-event {
+  background-color: #2563eb;
+  border-radius: 9999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  border: none;
+}
+
+/* Event text */
+.fc-event-title {
+  color: white;
+  font-weight: 500;
+}
+
+/* Hide time */
+.fc-event-time {
+  display: none;
+}
+
+/* Calendar title */
+.fc-toolbar-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Day numbers */
+.fc-daygrid-day-number {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* =========== For Swiper Slider ================ */
+
+.osi-coverflow {
+  padding: 90px 0 !important;
+  overflow: visible !important;
+  perspective: 1400px;
+}
+
+.osi-slide {
+  width: 420px;
+  opacity: 0.45;
+  transition:
+    transform 0.6s ease,
+    opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.osi-card {
+  height: 460px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+}
+
+.swiper-slide-prev {
+  transform: translateX(-60px) rotateY(28deg);
+}
+
+.swiper-slide-next {
+  transform: translateX(60px) rotateY(-28deg);
+}
+
+.osi-slide.swiper-slide-active {
+  opacity: 1;
+  transform: translateX(0) rotateY(0);
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.step_box {
+  @apply px-7 py-10 rounded-lg shadow-[0_4px_15px_rgba(0,0,0,0.05)] bg-white border border-gray-100;
+}
+
+.step_input {
+  @apply rounded-full px-5 py-3 border text-lg w-full block outline-none;
+}
+
+.auth_label {
+  @apply text-xl text-[#1D1D1F] block;
+}
+
+.artist_label {
+  @apply text-xl text-[#1D1D1F] flex gap-2 items-center;
+}
+
+.auth_label span {
+  @apply text-red-500;
+}
+
+.card {
+  @apply bg-white border border-gray-100 p-5 rounded-lg;
+}
+
+.swiper-pagination {
+  margin-top: 40px;
+  position: relative !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: white;
+  opacity: 0.5;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #636364 !important;
+  transform: scale(1.2);
+}
+
+/* =========== Rich text editor (TipTap) placeholder ================ */
+.rich-editor .ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: #94a3b8;
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* =========== Rendered rich-text content (read-only display) ================ */
+.rich-text-body h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0.25rem 0;
+}
+
+.rich-text-body h2 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0.25rem 0;
+}
+
+.rich-text-body h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0.25rem 0;
+}
+
+.rich-text-body h4,
+.rich-text-body h5 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin: 0.25rem 0;
+}
+
+.rich-text-body p {
+  margin: 0.25rem 0;
+}
+
+.rich-text-body ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+.rich-text-body ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+}
+
+.rich-text-body a {
+  color: #3b82f6;
+  text-decoration: underline;
+}
+
+.rich-text-body img {
+  max-width: 100%;
+  border-radius: 0.5rem;
+  margin: 0.5rem 0;
+}

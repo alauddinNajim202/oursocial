@@ -1,0 +1,42 @@
+import aboutBg from "@/Assets/about.jpg";
+import about_us_logo from "@/Assets/about_us_logo.png";
+import Image from "next/image";
+import { CMSAboutHero } from "@/Types/cms";
+
+const AboutBanner = ({ data }: { data?: CMSAboutHero }) => {
+  const bgImage = data?.bg || aboutBg.src;
+  return (
+    <section
+      style={{
+        backgroundImage: `
+          linear-gradient(0deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+          url(${bgImage})
+        `,
+      }}
+      className="h-[300px] md:h-[400px] xl:h-[500px] bg-no-repeat bg-center bg-cover"
+    >
+      <div className="h-full container flex flex-col items-center justify-center">
+        <figure className="w-[170px] md:w-[200px] xl:w-[238px] xl:h-[161px]">
+          <Image
+            src={data?.image || about_us_logo}
+            alt="about_us_logo"
+            width={238}
+            height={161}
+            unoptimized
+            className="w-full h-full object-cover"
+          />
+        </figure>
+
+        <h2 className="text-3xl md:text-5xl xl:text-[70px] font-bold text-white">
+          {data?.title || "About Us"}
+        </h2>
+
+        <p className="text-[#F5F5F7] text-center md:text-xl xl:text-[26px] pt-3 md:pt-5">
+          {data?.sub_title || "Building bridges between business, art, and community"}
+        </p>
+      </div>
+    </section>
+  );
+};
+
+export default AboutBanner;
